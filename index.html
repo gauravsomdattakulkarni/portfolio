@@ -1,147 +1,382 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="light">
+<html lang="en" data-theme="dark">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Gaurav Somdatta Kulkarni — Backend Developer</title>
+  <title>Gaurav Somdatta Kulkarni — Senior Backend Developer</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" />
-  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;200;300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  
   <style>
-    body { font-family: "Inter", sans-serif; transition: 0.3s; }
-    [data-theme="light"] { --bg:#f5f7fa; --text:#1a1a1a; --card:#ffffff; }
-    [data-theme="dark"] { --bg:#0f1115; --text:#e1e1e1; --card:#1b1e24; }
-    body{ background:var(--bg); color:var(--text); }
-    .hero{ background:linear-gradient(to right, #0d6efd, #6610f2); color:white; padding:90px 0; }
-    .section-title { font-weight:700; margin-bottom:20px; }
-    .card{ background:var(--card); border-radius:16px; transition:0.3s; border:none; }
-    .card:hover{ transform:translateY(-6px); box-shadow:0 12px 30px rgba(0,0,0,0.12); }
-    .badge-skill{ background:#e9f0ff; color:#0d6efd; padding:8px 14px; border-radius:30px; font-size:14px; }
-    .project-img{ border-radius:12px; max-height:180px; object-fit:cover; }
-    .theme-toggle{ position:fixed; top:20px; right:20px; z-index:1000; }
+    /* 1. VARIABLES & BASE STYLES */
+    :root {
+      --primary: #4e73df; /* Deep Corporate Blue */
+      --light-bg: #f4f6f9; 
+      --dark-bg: #1a202c; /* Charcoal Dark Mode */
+      --card-light: #ffffff;
+      --card-dark: #2d3748;
+      --text-light: #212529;
+      --text-dark: #edf2f7;
+      --muted: #a0aec0;
+    }
+    body {
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.5s ease;
+      scroll-behavior: smooth;
+    }
+    [data-theme="light"] {
+      background-color: var(--light-bg);
+      color: var(--text-light);
+    }
+    [data-theme="dark"] {
+      background-color: var(--dark-bg);
+      color: var(--text-dark);
+    }
+
+    /* 2. HEADER/HERO STYLES */
+    .hero {
+      background: var(--card-light);
+      padding: 100px 0 60px;
+    }
+    [data-theme="dark"] .hero {
+      background: var(--card-dark);
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+    .hero h1 {
+        font-weight: 800;
+        color: var(--primary);
+    }
+    .contact-badge {
+        background-color: var(--light-bg);
+        color: var(--text-light);
+        padding: 8px 15px;
+        border-radius: 6px;
+        font-size: 0.9rem;
+        transition: all 0.3s;
+        text-decoration: none;
+        display: inline-block;
+    }
+    [data-theme="dark"] .contact-badge {
+        background-color: #4a5568;
+        color: var(--text-dark);
+    }
+
+    /* 3. SECTION STYLES */
+    .section-title {
+      font-weight: 700;
+      font-size: 1.8rem;
+      margin-bottom: 30px;
+      position: relative;
+      color: var(--primary);
+    }
+    .section-title::after {
+        content: '';
+        display: block;
+        width: 60px;
+        height: 4px;
+        background-color: var(--primary);
+        margin-top: 5px;
+        border-radius: 2px;
+    }
+    .main-section {
+        padding: 80px 0;
+    }
+    
+    /* 4. CARD STYLES */
+    .card {
+      background: var(--card-light);
+      border: none;
+      border-radius: 12px;
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+      transition: all 0.3s;
+    }
+    [data-theme="dark"] .card {
+      background: var(--card-dark);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    }
+
+    /* 5. SKILL STYLES */
+    .skill-tag {
+      display: inline-block;
+      background-color: var(--primary); 
+      color: white;
+      padding: 6px 14px;
+      border-radius: 4px;
+      margin: 5px;
+      font-size: 0.9rem;
+      font-weight: 500;
+      transition: background-color 0.2s;
+    }
+    .skill-tag:hover {
+        background-color: #3b59a6;
+    }
+    
+    /* 6. TIMELINE FOR EXPERIENCE (Modern Professional Look) */
+    .timeline {
+        border-left: 3px solid var(--primary);
+        padding: 0 0 20px 20px;
+        list-style: none;
+    }
+    .timeline-item {
+        position: relative;
+        padding-bottom: 25px;
+        margin-bottom: 25px;
+    }
+    .timeline-item::before {
+        content: '';
+        position: absolute;
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        background: var(--primary);
+        left: -29px;
+        top: 0;
+        border: 4px solid var(--dark-bg); 
+    }
+    [data-theme="light"] .timeline-item::before {
+        border: 4px solid var(--light-bg); 
+    }
+    .timeline-date {
+        font-weight: 600;
+        color: var(--primary);
+        font-size: 0.9rem;
+        margin-bottom: 5px;
+    }
+    .timeline-role {
+        font-weight: 700;
+        font-size: 1.25rem;
+    }
+    .timeline-details {
+        font-size: 0.95rem;
+        color: var(--muted);
+        line-height: 1.6;
+    }
+    
+    /* 7. EDUCATION/CERTIFICATIONS */
+    .detail-heading {
+        font-weight: 600;
+        margin-top: 15px;
+        border-bottom: 1px dashed var(--muted);
+        padding-bottom: 5px;
+    }
+    .detail-body {
+        font-size: 0.9rem;
+        color: var(--muted);
+    }
+
+    /* 8. THEME TOGGLE */
+    .theme-toggle {
+      position: fixed;
+      top: 30px;
+      right: 30px;
+      z-index: 1000;
+      border-radius: 50%;
+      width: 45px;
+      height: 45px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: var(--primary);
+      color: white;
+      border: none;
+    }
   </style>
 </head>
 <body>
 
-<!-- DARK MODE TOGGLE -->
-<button class="btn btn-dark theme-toggle" id="themeBtn"><i class="bi bi-moon-stars"></i></button>
+<button class="btn theme-toggle shadow-lg" id="themeBtn" title="Toggle Dark/Light Mode"><i class="fa-solid fa-sun"></i></button>
 
-<!-- HERO -->
-<section class="hero text-center">
-  <div class="container">
-    <h1 class="fw-bold mb-3">Backend Developer</h1>
-    <p class="lead mb-4">Laravel • CodeIgniter • Spring Boot • REST APIs • AWS</p>
+<header class="hero shadow-sm">
+  <div class="container" data-aos="fade-down">
+    <h1 class="display-5 mb-1">Gaurav Somdatta Kulkarni</h1>
+    <h2 class="lead fs-5 text-muted mb-4">Experienced Web Developer | Expert in PHP, Laravel, Spring Boot, Core Java, Python, AWS, & Power BI | Focused on Scalable Digital Solutions and Data-Driven Insights | Delivering Exceptional Results at Satmat Technologies</h2>
 
-    <div class="d-inline-flex gap-4 flex-wrap fw-semibold bg-light text-dark p-3 rounded-3">
-      <span><i class="bi bi-envelope-fill me-2"></i>gaurav.somdatta.kulkarni@gmail.com</span>
-      <span><i class="bi bi-phone-fill me-2"></i>+91 97632 37830</span>
-      <span><i class="bi bi-geo-alt-fill me-2"></i>Pune, India</span>
+    <div class="d-flex flex-wrap gap-3 fw-semibold">
+      <a href="mailto:gaurav.somdatta.kulkarni@gmail.com" class="contact-badge"><i class="fa-solid fa-envelope me-2"></i>Email</a>
+      <a href="tel:+919763237830" class="contact-badge"><i class="fa-solid fa-phone me-2"></i>+91 97632 37830</a>
+      <span class="contact-badge"><i class="fa-solid fa-location-dot me-2"></i>Pune, India</span>
     </div>
   </div>
-</section>
+</header>
 
-<!-- SUMMARY -->
-<section class="py-5 container">
-  <h2 class="section-title">Summary</h2>
-  <p>Backend developer specializing in Laravel, CodeIgniter & Spring Boot. Skilled in scalable backend architecture, REST API development & AWS cloud integration.</p>
-</section>
+<main class="container">
 
-<!-- EXPERIENCE -->
-<section class="py-5">
-  <div class="container">
-    <h2 class="section-title">Professional Experience</h2>
-
-    <div class="card p-4 mb-3">
-      <h5 class="fw-bold">Senior Web Developer — Satmat Technologies (Apr 2025 – Present)</h5>
-      <ul>
-        <li>Led backend API architecture for Android apps.</li>
-        <li>API performance tuning, DB optimization, production debugging.</li>
-        <li>Implemented AWS S3 / IAM / DynamoDB for cloud architecture.</li>
-      </ul>
+  <section class="main-section" id="summary">
+    <h2 class="section-title" data-aos="fade-up">Professional Overview</h2>
+    <div class="card p-4" data-aos="fade-up" data-aos-delay="100">
+        <p class="fs-5 text-muted mb-0">
+            
+            As a skilled backend developer specializing in Laravel, I focus on building scalable, high-performance web applications. With extensive experience in backend development, I am passionate about crafting solutions that are robust, efficient, and tailored to the unique needs of clients. Since joining Satmat Technologies in June 2022, I have consistently contributed to the creation of dynamic web applications, ensuring seamless functionality and optimal performance.
+            Key Highlights:
+            * Laravel Development: Expert in designing and maintaining Laravel-based applications. I specialize in creating secure APIs, managing backend logic, and ensuring smooth performance in complex systems. 
+            * API Development & Integration: Proficient in developing RESTful APIs and integrating third-party services to facilitate seamless data exchange and system interoperability. 
+            * Database Design & Optimization: Strong expertise in MySQL database design and optimization, focusing on efficient data retrieval, reliability, and scalability through normalization and indexing strategies. 
+            * Spring Boot: Knowledgeable in Spring Boot, allowing me to work with Java-based backend systems, build microservices, and optimize API performance in Java environments. 
+            * Power BI & AWS Basics: Knowledgeable in Microsoft Power BI, creating insightful, data-driven reports and dashboards. I also have a foundational understanding of AWS, enabling cloud-based deployments and management. 
+            * Front-End Skills: While my expertise is in backend development, I am proficient in HTML, CSS, JavaScript, and Bootstrap, enabling me to create responsive, user-friendly front-end interfaces that complement my backend solutions. 
+            * Performance & Security Optimization: Committed to writing efficient, secure code, I continuously optimize applications for performance, scalability, and security to ensure reliability under heavy traffic and protect user data. 
+            * Continuous Learning & Adaptability: Eager to stay up-to-date with the latest trends in backend development, Spring Boot, cloud technologies, and data analytics, I am always expanding my skill set to remain adaptable in a fast-evolving industry. 
+            At Satmat Technologies, I aim to create scalable, data-driven solutions that not only meet technical requirements but also drive business growth. I am dedicated to continuing my professional development and contributing to the creation of innovative digital solutions.
+          
+          </p>
     </div>
+  </section>
 
-    <div class="card p-4">
-      <h5 class="fw-bold">Web Developer — Satmat Technologies (Jun 2022 – Mar 2025)</h5>
-      <ul>
-        <li>Backend development using Laravel, CI, Spring Boot.</li>
-        <li>REST APIs for Android + Web, Microservice architecture.</li>
-      </ul>
-    </div>
-  </div>
-</section>
+  <section class="main-section" id="experience">
+    <h2 class="section-title" data-aos="fade-up">Work History at Satmat Technologies</h2>
+    <ul class="timeline">
+        <li class="timeline-item" data-aos="fade-right">
+            <div class="timeline-date">April 2025 - Present</div>
+            <div class="timeline-role">Senior Web Developer, Pune</div>
+            <p class="timeline-details">
+                Promoted based on consistent performance and leadership. Led backend development, designing and implementing RESTful APIs for Android app integration. Directed backend development using **Laravel, CodeIgniter, and Spring Boot**, optimizing performance, security, and scalability. Managed server optimization, production debugging, and implemented **AWS services** (S3, IAM, DynamoDB).
+            </p>
+        </li>
 
-<!-- PROJECTS -->
-<section class="py-5 container">
-  <h2 class="section-title">Projects</h2>
-  <div class="row g-4">
-
-    <div class="col-md-4">
-      <div class="card p-3 h-100">
-        <img src="https://picsum.photos/500/300?random=1" class="project-img mb-3" />
-        <h5 class="fw-bold">Loan Management System (Android + Web)</h5>
-        <p>REST API based finance platform handling loans, EMIs, repayments & auto transaction settlements.</p>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card p-3 h-100">
-        <img src="https://picsum.photos/500/300?random=2" class="project-img mb-3" />
-        <h5 class="fw-bold">HRMS Employee Portal</h5>
-        <p>Employee attendance, salary slips, leave management built using Laravel + AWS.</p>
-      </div>
-    </div>
-
-    <div class="col-md-4">
-      <div class="card p-3 h-100">
-        <img src="https://picsum.photos/500/300?random=3" class="project-img mb-3" />
-        <h5 class="fw-bold">Spring Boot Billing System</h5>
-        <p>Microservices billing engine integrated with PostgreSQL + JWT Auth.</p>
-      </div>
-    </div>
-
-  </div>
-</section>
-
-<!-- SKILLS -->
-<section class="py-5">
-  <div class="container">
-    <h2 class="section-title">Skills</h2>
-    <div class="row g-3">
-      <div class="col-md-3"><span class="badge-skill w-100 text-center d-block">PHP • Python • Java</span></div>
-      <div class="col-md-3"><span class="badge-skill w-100 text-center d-block">Laravel • CI • Spring Boot</span></div>
-      <div class="col-md-3"><span class="badge-skill w-100 text-center d-block">HTML • CSS • JS • Bootstrap</span></div>
-      <div class="col-md-3"><span class="badge-skill w-100 text-center d-block">MySQL • PostgreSQL • DynamoDB</span></div>
-    </div>
-  </div>
-</section>
-
-<!-- CERTIFICATIONS -->
-<section class="py-5">
-  <div class="container">
-    <h2 class="section-title">Certifications</h2>
-    <ul>
-      <li>GIT for Beginners - Udemy (2025)</li>
-      <li>Java Spring Boot - Udemy (2024)</li>
-      <li>SQL & Java Basics - HackerRank (2024)</li>
-      <li>AWS Essentials + Linux - Simplilearn (2023-2024)</li>
+        <li class="timeline-item" data-aos="fade-right" data-aos-delay="150">
+            <div class="timeline-date">June 2022 - March 2025</div>
+            <div class="timeline-role">Web Developer, Pune</div>
+            <p class="timeline-details">
+                Core developer in backend tasks utilizing **Laravel, CodeIgniter, and Spring Boot**. Created secure REST APIs for both Android and web clients. Designed RESTful APIs for seamless Android application integration and built scalable architectures using Spring Boot MVC.
+            </p>
+        </li>
     </ul>
-  </div>
-</section>
+  </section>
 
-<!-- EDUCATION -->
-<section class="py-5 container">
-  <h2 class="section-title">Education</h2>
-  <ul>
-    <li>MCA — Amity University (CGPA 7.84)</li>
-    <li>BCA — KSKVKU (CGPA 9.43, University Rank Holder)</li>
-  </ul>
-</section>
+  <section class="main-section" id="skills">
+    <h2 class="section-title" data-aos="fade-up">Technical Expertise</h2>
+    <div class="d-flex flex-wrap" data-aos="fade-up" data-aos-delay="100">
+      
+      <span class="skill-tag"><i class="fa-solid fa-code me-1"></i> PHP, Python, Java</span>
+      <span class="skill-tag"><i class="fa-solid fa-laptop-code me-1"></i> Laravel, CI, Spring Boot</span>
+      <span class="skill-tag"><i class="fa-solid fa-server me-1"></i> REST API, API Testing</span>
+      <span class="skill-tag"><i class="fa-solid fa-database me-1"></i> MySQL, PostgreSQL, DynamoDB</span>
+      <span class="skill-tag"><i class="fa-solid fa-cloud me-1"></i> AWS (S3, IAM, DynamoDB)</span>
+      <span class="skill-tag"><i class="fa-solid fa-file-code me-1"></i> HTML, CSS, JavaScript, jQuery</span>
+    </div>
+  </section>
 
+  <section class="main-section" id="projects">
+    <h2 class="section-title" data-aos="fade-up">Key Projects</h2>
+    <div class="row g-4">
+      
+      <div class="col-md-6 col-lg-4" data-aos="zoom-in">
+        <div class="card p-4 h-100 project-card">
+          <h5 class="fw-bold text-primary mb-2"><i class="fa-solid fa-money-bill-transfer me-2"></i>Loan Management System</h5>
+          <p class="mb-0 text-muted">REST API based finance platform handling loans, EMIs, repayments & auto transaction settlements.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="100">
+        <div class="card p-4 h-100 project-card">
+          <h5 class="fw-bold text-primary mb-2"><i class="fa-solid fa-user-tie me-2"></i>HRMS Employee Portal</h5>
+          <p class="mb-0 text-muted">Employee attendance, salary slips, leave management built using Laravel + AWS.</p>
+        </div>
+      </div>
+
+      <div class="col-md-6 col-lg-4" data-aos="zoom-in" data-aos-delay="200">
+        <div class="card p-4 h-100 project-card">
+          <h5 class="fw-bold text-primary mb-2"><i class="fa-solid fa-receipt me-2"></i>Spring Boot Billing System</h5>
+          <p class="mb-0 text-muted">Microservices billing engine integrated with PostgreSQL + JWT Auth.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <section class="main-section" id="education-certs">
+    <h2 class="section-title" data-aos="fade-up">Education & Certifications</h2>
+    <div class="row">
+      
+      <div class="col-lg-6 mb-5 mb-lg-0" data-aos="fade-up">
+        <div class="detail-heading text-primary"><i class="fa-solid fa-graduation-cap me-2"></i>Master of Computer Applications (MCA)</div>
+        <div class="detail-body">AMITY University Online (2022-2024) | CGPA: 7.84</div>
+        
+        <div class="detail-heading text-primary"><i class="fa-solid fa-graduation-cap me-2"></i>Bachelor of Computer Applications (BCA)</div>
+        <div class="detail-body">KUTCH University (2019-2022) | CGPA: 9.43 - **2nd Rank**</div>
+      </div>
+
+      <div class="col-lg-6" data-aos="fade-up" data-aos-delay="150">
+        <div class="detail-heading text-primary"><i class="fa-solid fa-award me-2"></i>Key Certifications</div>
+        <ul class="list-unstyled detail-body">
+          <li>Java Spring Framework 6 with Spring Boot 3 - Udemy (Dec 2024)</li>
+          <li>SQL Basics & Java Basics - Hacker Rank (Dec 2024)</li>
+          <li>AWS Technical Essentials - Simplilearn (Dec 2023)</li>
+          <li>Master Laravel 10 for Beginners - Udemy (Apr 2023)</li>
+          <li>GIT for Beginners - Udemy (Mar 2025)</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="bg-dark text-white py-4 mt-5">
+    <div class="container text-center">
+        <p class="mb-0 fw-light" style="font-size: 0.85rem;">&copy; 2025 Gaurav Somdatta Kulkarni. | Languages: English, Hindi, Marathi, Gujarati</p>
+    </div>
+</footer>
+
+<script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
 <script>
-const btn=document.getElementById("themeBtn");
-btn.addEventListener("click",()=>{
- let html=document.documentElement;
- html.dataset.theme=html.dataset.theme=="light"?"dark":"light";
-});
+    // Initialize AOS Library for Scroll Animations
+    AOS.init({
+        duration: 800, 
+        once: true, 
+    });
+
+    // Theme Toggle Logic
+    const themeBtn = document.getElementById("themeBtn");
+    const html = document.documentElement;
+
+    // Set initial icon based on theme
+    const setIcon = (theme) => {
+        themeBtn.innerHTML = theme === "dark" ? '<i class="fa-solid fa-sun"></i>' : '<i class="fa-solid fa-moon"></i>';
+    };
+    
+    // Check local storage for theme preference or default to dark
+    const storedTheme = localStorage.getItem('theme') || 'dark';
+    html.setAttribute('data-theme', storedTheme);
+    setIcon(storedTheme);
+
+
+    themeBtn.addEventListener("click", () => {
+        const currentTheme = html.getAttribute('data-theme');
+        const newTheme = currentTheme === "light" ? "dark" : "light";
+        html.setAttribute('data-theme', newTheme);
+        localStorage.setItem('theme', newTheme); // Save preference
+        setIcon(newTheme);
+    });
+
+    // JQUERY ANIMATION (Subtle card lift on hover)
+    $(document).ready(function() {
+        $(".project-card").hover(
+            function() {
+                // Determine box shadow based on current theme for contrast
+                const isDark = html.getAttribute('data-theme') === "dark";
+                const shadowColor = isDark ? 'rgba(78, 115, 223, 0.4)' : 'rgba(78, 115, 223, 0.2)';
+                
+                $(this).stop(true, true).animate({ 
+                    marginTop: '-5px', 
+                    boxShadow: '0 8px 25px ' + shadowColor 
+                }, 200);
+            },
+            function() {
+                // Determine box shadow based on current theme for reset
+                const isDark = html.getAttribute('data-theme') === "dark";
+                const shadowColor = isDark ? '0 4px 15px rgba(0, 0, 0, 0.3)' : '0 4px 15px rgba(0, 0, 0, 0.05)';
+                
+                $(this).stop(true, true).animate({ 
+                    marginTop: '0px', 
+                    boxShadow: shadowColor 
+                }, 200);
+            }
+        );
+    });
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>
